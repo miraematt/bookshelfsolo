@@ -17,7 +17,7 @@ class App extends Component {
     if (this.state !== {})
       return (
         <div>
-          <input placeholder="Enter your search word here" />
+          <input className="search" placeholder="Enter your search word here" />
           <ul>
             {this.state.books.map((book, i) => (
               <li key={i}>
