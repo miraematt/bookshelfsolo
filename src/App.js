@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import axios from "axios";
+import "./style.css";
+class App extends Component {
+  state = { books: [] };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  componentDidMount() {
+    axios
+      .get("https://www.googleapis.com/books/v1/volumes?q=thehobbit")
+      .then(res => {
+        console.log(res);
+        this.setState({ books: res.data.items });
+      });
+  }
+
+  render() {
+    if (this.state !== {})
+      return (
+        <div>
+          <input placeholder="Enter your search word here" />
+          <ul>
+            {this.state.books.map((book, i) => (
+              <li key={i}>
+                {i + 1}:{book.volumeInfo.title} - {book.volumeInfo.authors[0]}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+  }
 }
-
 export default App;
